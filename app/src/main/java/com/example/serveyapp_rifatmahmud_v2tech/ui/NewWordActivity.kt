@@ -11,9 +11,7 @@ import com.example.serveyapp_rifatmahmud_v2tech.R
 
 
 class NewWordActivity : AppCompatActivity() {
-    public val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
-
-//    private var mEditWordView: EditText? = null
+     val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

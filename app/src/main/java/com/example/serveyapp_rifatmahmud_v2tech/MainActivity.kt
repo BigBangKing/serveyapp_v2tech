@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.serveyapp_rifatmahmud_v2tech.ViewModel.WordViewModel
 import com.example.serveyapp_rifatmahmud_v2tech.adapter.WordListAdapter
 import com.example.serveyapp_rifatmahmud_v2tech.data.Word
+import com.example.serveyapp_rifatmahmud_v2tech.ui.NewServeyActivity
 import com.example.serveyapp_rifatmahmud_v2tech.ui.NewWordActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -44,8 +45,12 @@ class MainActivity : AppCompatActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
-                val intent = Intent(this@MainActivity, NewWordActivity::class.java)
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE)
+                //val intent = Intent(this@MainActivity, NewWordActivity::class.java)
+                //startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE)
+
+                val intentServey = Intent(this@MainActivity, NewServeyActivity::class.java)
+                startActivity(intentServey)
+
             }
         })
     }

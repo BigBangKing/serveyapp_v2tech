@@ -53,6 +53,12 @@ dependencies {
 // UI
     implementation "com.google.android.material:material:$rootProject.materialVersion"
 
+    //Volley
+    implementation 'com.android.volley:volley:1.1.1'
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+
 // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
 
