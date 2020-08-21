@@ -26,7 +26,7 @@ class ServeyFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.servey_fragment, container, false)
 
-        val tv:TextView = view.findViewById(R.id.textView2)
+        val tv:TextView = view.findViewById(R.id.textView3)
 
         var x: Array<schema2x>
         model.serveys.observe(viewLifecycleOwner, Observer {
