@@ -5,13 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.serveyapp_rifatmahmud_v2tech.data.pojo.schema2x
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 
 class ServeyRepository {
@@ -29,8 +26,18 @@ class ServeyRepository {
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
-                mResponse?.setValue(response.toString())
+                val gson = Gson()
+
+                val userArray: Array<schema2x> = gson.fromJson(
+                    response,
+                    Array<schema2x>::class.java
+                )
+
+//                mResponse?.setValue(response.toString())
                 Log.v("test", response)
+                for (user in userArray) {
+                   Log.d("test", user.options)
+                }
             },
             {
                 it.printStackTrace()
