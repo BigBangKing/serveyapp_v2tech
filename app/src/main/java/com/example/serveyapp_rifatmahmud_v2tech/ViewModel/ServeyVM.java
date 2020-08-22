@@ -2,6 +2,7 @@ package com.example.serveyapp_rifatmahmud_v2tech.ViewModel;
 
 import android.app.Application;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -32,8 +33,15 @@ public class ServeyVM extends AndroidViewModel {
 
     }
 
-    public void addValues(String values){
-        CurrentValues.append(" ").append(values);
+    public void addValues(String values) {
+        if (CurrentValues == null){
+            CurrentValues = new StringBuilder();
+        }
+        CurrentValues.append(" --- ").append(values);
+    }
+
+    public void showValues() {
+        Toast.makeText(getApplication(), CurrentValues.toString(), Toast.LENGTH_LONG).show();
     }
 
     public void populateSurvey() {

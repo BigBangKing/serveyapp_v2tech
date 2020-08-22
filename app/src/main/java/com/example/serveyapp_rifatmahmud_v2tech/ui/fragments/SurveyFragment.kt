@@ -24,6 +24,7 @@ class SurveyFragment : Fragment() {
 
     private val model: ServeyVM by activityViewModels()
     private var i: Int = 0
+    private lateinit var tempString: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,12 +34,13 @@ class SurveyFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.servey_fragment, container, false)
-
+        tempString = ""
         val tv: TextView = view.findViewById(R.id.textViewQuestion)
         val NextButton: TextView = view.findViewById(R.id.button2)
         val PrevButton: TextView = view.findViewById(R.id.button3)
         val button: Button = view.findViewById(R.id.button)
         val TypeHolder: LinearLayout = view.findViewById(R.id.TypeHolder)
+
 
         PrevButton.visibility = View.GONE
         NextButton.visibility = View.GONE
@@ -58,12 +60,10 @@ class SurveyFragment : Fragment() {
                 button.visibility = View.VISIBLE
 //                PrevButton.visibility = View.GONE
 //                NextButton.visibility = View.GONE
- 
+
                 button.setText("Done Survey")
                 button.setOnClickListener {
-                    View.OnClickListener {
-                        Log.d("test", "Done")
-                    }
+                    model.showValues()
                 }
             } else {
                 if (button.visibility == View.VISIBLE)
@@ -106,6 +106,25 @@ class SurveyFragment : Fragment() {
 
                     rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, i ->
                         RequiredCheckedListener()
+
+                        val checkedRadioButton =
+                            radioGroup?.findViewById(radioGroup.checkedRadioButtonId) as? RadioButton
+
+                        checkedRadioButton?.let {
+
+                            if (checkedRadioButton.isChecked)
+                                tempString = checkedRadioButton?.text as String
+                        }
+                        /* var id: Int = rg.checkedRadioButtonId
+                         if (id!=-1){ // If any radio button checked from radio group
+                             // Get the instance of radio button using id
+                             val radio:RadioButton = findViewById(id)
+
+                         }else{
+                             // If no radio button checked in this radio group
+
+                         }*/
+
                     })
                 }
 
@@ -144,6 +163,7 @@ class SurveyFragment : Fragment() {
                             position: Int,
                             id: Long
                         ) {
+                            tempString += parent?.getItemAtPosition(position).toString();
                             RequiredCheckedListener()
                         }
 
@@ -177,8 +197,12 @@ class SurveyFragment : Fragment() {
                         override fun afterTextChanged(s: Editable?) {
                             if (TextUtils.isEmpty(mEditText.text)) {
 
-                            } else
+                            } else {
                                 RequiredCheckedListener()
+
+                                tempString = mEditText.text.toString()
+
+                            }
                         }
 
                     })
@@ -213,8 +237,11 @@ class SurveyFragment : Fragment() {
                         override fun afterTextChanged(s: Editable?) {
                             if (TextUtils.isEmpty(mEditText.text)) {
 
-                            } else
+                            } else {
                                 RequiredCheckedListener()
+                                tempString = mEditText.text.toString()
+
+                            }
                         }
 
                     })
@@ -234,6 +261,15 @@ class SurveyFragment : Fragment() {
                             TypeHolder.addView(cb)
                             cb.setOnClickListener(View.OnClickListener {
                                 RequiredCheckedListener()
+
+                                if (cb.isChecked)
+                                    tempString += cb.text
+                                else {
+                                    if (tempString != null) {
+//                                        tempString.chars().allMatch { cb.text }
+                                    }
+                                }
+
                             })
                         }
                     }
@@ -271,16 +307,20 @@ class SurveyFragment : Fragment() {
             processView()
         })
 
-        NextButton.setOnClickListener(View.OnClickListener {
+        NextButton.setOnClickListener {
             currentSurvey = model.IncSurvey()
 
             processView()
 
-        })
+            model.addValues(currentSurvey?.question + " Feedback: " + tempString)
+
+        }
 
         PrevButton.setOnClickListener(View.OnClickListener {
             currentSurvey = model.decSurvey()
             processView()
+
+            model.addValues(currentSurvey?.question + " Feedback: " + tempString)
 
         })
 
