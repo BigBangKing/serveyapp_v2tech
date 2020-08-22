@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -49,6 +50,25 @@ class SurveyFragment : Fragment() {
 
         })
 
+        model.showDoneButton.observe(viewLifecycleOwner, Observer {
+
+            if (it == true) {
+                button.visibility = View.VISIBLE
+//                PrevButton.visibility = View.GONE
+//                NextButton.visibility = View.GONE
+
+                button.setText("Done Survey")
+                button.setOnClickListener {
+                    View.OnClickListener {
+                        Log.d("test", "Done")
+                    }
+                }
+            } else {
+                if (button.visibility == View.VISIBLE)
+                    button.visibility = View.INVISIBLE
+            }
+        })
+
         fun processView() {
             tv.text = currentSurvey?.question
 
@@ -59,16 +79,18 @@ class SurveyFragment : Fragment() {
 
                     val cs: String? = currentSurvey?.options ?: return
 
-                    val strings = cs?.split(",")?.toTypedArray()
+                    val strings = cs?.split(",")?.toList()
 
+                    val rg = RadioGroup(context)
+                    rg.orientation = RadioGroup.VERTICAL
                     if (strings != null) {
-                        for (s in strings) {
-                            val cb = CheckBox(view.context)
-                            cb.text = s
-                            cb.isChecked = false
-                            TypeHolder.addView(cb)
-                        }
+                       for(i in strings.indices){
+                           val rb = RadioButton(context)
+                           rb.text = strings[i]
+                           rg.addView(rb)
+                       }
                     }
+                    TypeHolder.addView(rg)
                 }
 
                 "dropdown" -> {

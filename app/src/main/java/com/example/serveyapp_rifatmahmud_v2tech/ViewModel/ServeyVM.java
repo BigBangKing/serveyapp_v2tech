@@ -13,9 +13,11 @@ import com.example.serveyapp_rifatmahmud_v2tech.repository.SurveyRepository;
 public class ServeyVM extends AndroidViewModel {
 
     MutableLiveData<String> mResponse;
+    MutableLiveData<Boolean> showDoneButton;
     MutableLiveData<schema2x[]> surveys;
     schema2x[] CurrentSurveys;
     int i = 0;
+
 
     public ServeyVM(@NonNull Application application) {
         super(application);
@@ -39,7 +41,9 @@ public class ServeyVM extends AndroidViewModel {
         i++;
         if (i >= CurrentSurveys.length) {
             i = 0;
-        }
+            showDoneButton.setValue(true);
+        } else showDoneButton.setValue(false);
+
         return CurrentSurveys[i];
 
     }
@@ -48,7 +52,8 @@ public class ServeyVM extends AndroidViewModel {
         i--;
         if (i < 0) {
             i = CurrentSurveys.length - 1;
-        }
+            showDoneButton.setValue(true);
+        } else showDoneButton.setValue(false);
 
         return CurrentSurveys[i];
 
@@ -67,5 +72,16 @@ public class ServeyVM extends AndroidViewModel {
         return surveys;
     }
 
+
+    public MutableLiveData<Boolean> getShowDoneButton() {
+        if (showDoneButton == null) {
+            showDoneButton = new MutableLiveData<>();
+        }
+        return showDoneButton;
+    }
+
+    public void setShowDoneButton(MutableLiveData<Boolean> showDoneButton) {
+        this.showDoneButton = showDoneButton;
+    }
 
 }
