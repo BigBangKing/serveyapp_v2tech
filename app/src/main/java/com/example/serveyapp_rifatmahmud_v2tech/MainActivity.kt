@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.serveyapp_rifatmahmud_v2tech.ViewModel.WordViewModel
 import com.example.serveyapp_rifatmahmud_v2tech.adapter.WordListAdapter
 import com.example.serveyapp_rifatmahmud_v2tech.data.Word
-import com.example.serveyapp_rifatmahmud_v2tech.ui.NewServeyActivity
-import com.example.serveyapp_rifatmahmud_v2tech.ui.NewWordActivity
+import com.example.serveyapp_rifatmahmud_v2tech.ui.NewSurveyActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 //val intent = Intent(this@MainActivity, NewWordActivity::class.java)
                 //startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE)
 
-                val intentServey = Intent(this@MainActivity, NewServeyActivity::class.java)
+                val intentServey = Intent(this@MainActivity, NewSurveyActivity::class.java)
                 startActivity(intentServey)
 
             }

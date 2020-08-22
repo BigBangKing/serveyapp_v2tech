@@ -11,7 +11,7 @@ import com.example.serveyapp_rifatmahmud_v2tech.data.pojo.schema2x
 import com.google.gson.Gson
 
 
-class ServeyRepository {
+class SurveyRepository {
     private var mResponse: MutableLiveData<String>? = null
     private var serveyArray: MutableLiveData<Array<schema2x>>? = null
 
@@ -19,7 +19,7 @@ class ServeyRepository {
     fun StartFetching(application: Application) {
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(application.baseContext)
-        val url = "https://example-response.herokuapp.com/getSurvey"
+        val url = "https://example-response.herokuapp.com/getSurvey?" + System.currentTimeMillis()
 
         Log.d("test", "required method executed")
 
