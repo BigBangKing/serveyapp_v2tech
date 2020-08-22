@@ -2,7 +2,10 @@ package com.example.serveyapp_rifatmahmud_v2tech.ui.fragments
 
 import android.R.layout
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +29,6 @@ class SurveyFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-
 
     ): View {
         // Inflate the layout for this fragment
@@ -56,7 +58,7 @@ class SurveyFragment : Fragment() {
                 button.visibility = View.VISIBLE
 //                PrevButton.visibility = View.GONE
 //                NextButton.visibility = View.GONE
-
+ 
                 button.setText("Done Survey")
                 button.setOnClickListener {
                     View.OnClickListener {
@@ -68,6 +70,15 @@ class SurveyFragment : Fragment() {
                     button.visibility = View.INVISIBLE
             }
         })
+
+        fun RequiredCheckedListener() {
+
+            if (PrevButton.visibility == View.INVISIBLE || PrevButton.visibility == View.GONE)
+                PrevButton.visibility = View.VISIBLE
+            if (NextButton.visibility == View.INVISIBLE || NextButton.visibility == View.GONE)
+                NextButton.visibility = View.VISIBLE
+
+        }
 
         fun processView() {
             tv.text = currentSurvey?.question
@@ -84,14 +95,20 @@ class SurveyFragment : Fragment() {
                     val rg = RadioGroup(context)
                     rg.orientation = RadioGroup.VERTICAL
                     if (strings != null) {
-                       for(i in strings.indices){
-                           val rb = RadioButton(context)
-                           rb.text = strings[i]
-                           rg.addView(rb)
-                       }
+                        for (i in strings.indices) {
+                            val rb = RadioButton(context)
+                            rb.text = strings[i]
+                            rg.addView(rb)
+                        }
                     }
                     TypeHolder.addView(rg)
+
+
+                    rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, i ->
+                        RequiredCheckedListener()
+                    })
                 }
+
 
                 "dropdown" -> {
                     TypeHolder.removeAllViews()
@@ -112,12 +129,59 @@ class SurveyFragment : Fragment() {
 
                     TypeHolder.addView(spinner)
 
+                    spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                            PrevButton.visibility = View.INVISIBLE
+                            NextButton.visibility = View.INVISIBLE
+
+
+                        }
+
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            RequiredCheckedListener()
+                        }
+
+                    }
+
                 }
                 "text" -> {
                     TypeHolder.removeAllViews()
-                    val mEditText: EditText = EditText(context)
+                    val mEditText = EditText(context)
                     mEditText.hint = "Address"
                     TypeHolder.addView(mEditText)
+
+                    mEditText.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            count: Int,
+                            after: Int
+                        ) {
+
+                        }
+
+                        override fun onTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            before: Int,
+                            count: Int
+                        ) {
+                        }
+
+                        override fun afterTextChanged(s: Editable?) {
+                            if (TextUtils.isEmpty(mEditText.text)) {
+
+                            } else
+                                RequiredCheckedListener()
+                        }
+
+                    })
 
                 }
                 "number" -> {
@@ -127,6 +191,33 @@ class SurveyFragment : Fragment() {
                     mEditText.hint = "Phone Number (Optional)"
 
                     TypeHolder.addView(mEditText)
+
+                    mEditText.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            count: Int,
+                            after: Int
+                        ) {
+
+                        }
+
+                        override fun onTextChanged(
+                            s: CharSequence?,
+                            start: Int,
+                            before: Int,
+                            count: Int
+                        ) {
+                        }
+
+                        override fun afterTextChanged(s: Editable?) {
+                            if (TextUtils.isEmpty(mEditText.text)) {
+
+                            } else
+                                RequiredCheckedListener()
+                        }
+
+                    })
 
                 }
                 "multiple choice" -> {
@@ -141,13 +232,30 @@ class SurveyFragment : Fragment() {
                             cb.text = s
                             cb.isChecked = false
                             TypeHolder.addView(cb)
+                            cb.setOnClickListener(View.OnClickListener {
+                                RequiredCheckedListener()
+                            })
                         }
                     }
+
+
                 }
                 else -> {
                     Log.d("test", "Error. Survey Type mismatch.")
                 }
 
+            }
+
+            if (currentSurvey?.required!!) {
+
+                PrevButton.visibility = View.GONE
+                NextButton.visibility = View.GONE
+
+
+            } else {
+
+                PrevButton.visibility = View.VISIBLE
+                NextButton.visibility = View.VISIBLE
             }
         }
 
@@ -165,7 +273,6 @@ class SurveyFragment : Fragment() {
 
         NextButton.setOnClickListener(View.OnClickListener {
             currentSurvey = model.IncSurvey()
-//            TypeHolder.removeAllViews()
 
             processView()
 

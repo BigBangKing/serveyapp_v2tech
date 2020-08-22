@@ -17,6 +17,7 @@ public class ServeyVM extends AndroidViewModel {
     MutableLiveData<schema2x[]> surveys;
     schema2x[] CurrentSurveys;
     int i = 0;
+    StringBuilder CurrentValues;
 
 
     public ServeyVM(@NonNull Application application) {
@@ -31,6 +32,9 @@ public class ServeyVM extends AndroidViewModel {
 
     }
 
+    public void addValues(String values){
+        CurrentValues.append(" ").append(values);
+    }
 
     public void populateSurvey() {
         CurrentSurveys = surveys.getValue();
