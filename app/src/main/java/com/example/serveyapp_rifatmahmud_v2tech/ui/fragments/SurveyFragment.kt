@@ -64,6 +64,7 @@ class SurveyFragment : Fragment() {
                 button.setText("Done Survey")
                 button.setOnClickListener {
                     model.showValues()
+
                 }
             } else {
                 if (button.visibility == View.VISIBLE)

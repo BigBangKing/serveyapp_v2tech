@@ -6,10 +6,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.serveyapp_rifatmahmud_v2tech.data.Word;
 import com.example.serveyapp_rifatmahmud_v2tech.data.pojo.schema2x;
 import com.example.serveyapp_rifatmahmud_v2tech.repository.SurveyRepository;
+import com.example.serveyapp_rifatmahmud_v2tech.repository.WordRepository;
+
+import java.util.List;
 
 public class ServeyVM extends AndroidViewModel {
 
@@ -19,6 +24,10 @@ public class ServeyVM extends AndroidViewModel {
     schema2x[] CurrentSurveys;
     int i = 0;
     StringBuilder CurrentValues;
+
+    private WordRepository mRepository;
+
+    private LiveData<List<Word>> mAllWords;
 
 
     public ServeyVM(@NonNull Application application) {
@@ -30,8 +39,12 @@ public class ServeyVM extends AndroidViewModel {
         //mResponse = serveyRepository.getmResponse();
         surveys = surveyRepository.getServeyArrays();
 
+        mRepository = new WordRepository(application);
+        mAllWords = mRepository.getAllWords();
 
     }
+
+    public void insert(Word word) { mRepository.insert(word); }
 
     public void addValues(String values) {
         if (CurrentValues == null){
@@ -42,6 +55,8 @@ public class ServeyVM extends AndroidViewModel {
 
     public void showValues() {
         Toast.makeText(getApplication(), CurrentValues.toString(), Toast.LENGTH_LONG).show();
+        Word word = new Word(CurrentValues.toString());
+        insert(word);
     }
 
     public void populateSurvey() {
