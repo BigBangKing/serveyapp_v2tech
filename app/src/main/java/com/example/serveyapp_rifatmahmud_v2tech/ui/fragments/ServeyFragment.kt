@@ -17,21 +17,27 @@ import com.example.serveyapp_rifatmahmud_v2tech.data.pojo.schema2x
 class ServeyFragment : Fragment() {
 
     private val model: ServeyVM by activityViewModels()
+    private var i: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
+
     ): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.servey_fragment, container, false)
 
-        val tv:TextView = view.findViewById(R.id.textView3)
+        val tv: TextView = view.findViewById(R.id.textView3)
+        val NextButton: TextView = view.findViewById(R.id.button2)
+        val PrevButton: TextView = view.findViewById(R.id.button3)
 
-        var x: Array<schema2x>
+        var x: Array<schema2x>? = null
+
         model.serveys.observe(viewLifecycleOwner, Observer {
             x = it
-            tv.setText(x[0].question)
+            tv.text = (x as Array<out schema2x>?)?.get(0)?.question
         })
 
         val hider: View = view.findViewById(R.id.HideBackgrounds)
@@ -45,6 +51,15 @@ class ServeyFragment : Fragment() {
             }
         })
 
+        NextButton.setOnClickListener(View.OnClickListener {
+            tv.text = x?.get(i)?.question
+            i++
+            if (i>= x?.size!!){
+                i = 0
+            }
+
+
+        })
         return view
     }
 }
