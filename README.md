@@ -1,4 +1,4 @@
-# serveyapp_rifatmahmud_v2tech
+# surveyapp_rifatmahmud_v2tech
 
 Goal:
 **Develop a Survey App that allows a user to submit multiple surveys and store them.**
