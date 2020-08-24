@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020. Project modified/created by Rifat Mahmud. Any reuse of these projects should be credited to him.
+ * Google code samples/related libraries are reused and allowed to reuse as mentioned in Google Codelab/ respective public sources. Copyright information can be found on their respective repository/Sources.
+ */
+
 package com.example.serveyapp_rifatmahmud_v2tech.ui
 
 import android.os.Bundle
@@ -14,7 +19,6 @@ import com.example.serveyapp_rifatmahmud_v2tech.R
 import com.example.serveyapp_rifatmahmud_v2tech.ViewModel.ServeyVM
 import com.example.serveyapp_rifatmahmud_v2tech.data.pojo.schema2x
 import com.example.serveyapp_rifatmahmud_v2tech.ui.fragments.SurveyFragment
-
 
 class NewSurveyActivity : AppCompatActivity() {
 
