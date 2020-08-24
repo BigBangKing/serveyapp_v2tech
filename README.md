@@ -1,7 +1,7 @@
 # serveyapp_rifatmahmud_v2tech
 
 Goal:
-Develop a Survey App that allows a user to submit multiple surveys and store them.
+**Develop a Survey App that allows a user to submit multiple surveys and store them.**
 * Create a Project for a mobile phone
 * Platform - Android (Kotlin preferable)
 
@@ -16,7 +16,7 @@ Functional Requirements
 
 What can be found on this project:
 * An App that meets the Functional Requirements above
-* Architecture, structured code.
+* Architecture, structured code, reusability.
 
 This project was tested with following request:
 [{"question":"Do you like our product ?","type":"Checkbox","options":"Yes, No","required":true},{"question":"How are you ?","type":"multiple choice","options":"Very Good, Good, Neutral, Bad, Very Bad","required":true},{"question":"Where do you live ?","type":"text","options":"","required":true},{"question":"How frequent you use our product ?","type":"dropdown","options":"Very often, often, Moderate, Not much, Never used","required":true},{"question":"Your contact number ?","type":"number","options":"","required":false}]
@@ -24,3 +24,8 @@ This project was tested with following request:
 
 Screenshots:
 ![Home Screen](https://github.com/BigBangKing/serveyapp_rifatmahmud_v2tech/blob/BigBangKing-patch-1-Screenshots/device-2020-08-24-104803.png)
+
+![SurveyScreen](https://github.com/BigBangKing/serveyapp_rifatmahmud_v2tech/blob/BigBangKing-patch-1-Screenshots/device-2020-08-23-021126.png)
+![SurveyScreen](https://github.com/BigBangKing/serveyapp_rifatmahmud_v2tech/blob/BigBangKing-patch-1-Screenshots/device-2020-08-23-021059.png)
+
+**Feedback is much appreciated.**
